@@ -1,0 +1,151 @@
+/* Remove the navbar's default margin-bottom and rounded borders */
+.table-borderless td, .table-borderless th {
+	border: 0;
+}
+
+.content {
+	margin-top: 10px;
+}
+
+.content p {
+	line-height: 1em;
+	margin: 0px;
+}
+
+.content .author, .content .time {
+	font-size: 12px;
+	color: rgb(153, 153, 153);
+}
+
+.content p a {
+	line-height: 1em;
+	margin: 0px;
+	color: rgb(0, 154, 229);
+}
+
+.content span:before {
+	content: "\00a0";
+}
+
+.content span {
+	font-style: italic;
+	font-size: 11px;
+	color: #999999;
+}
+
+.padding-top {
+	padding-top: 20px;
+}
+
+.btn-action {
+	width: 155px;
+	margin-left: 40px;
+	font-weight: bold;
+	background-color: #bababa;
+}
+
+.btn-default {
+	background-color: #bababa;
+}
+
+.panel-default>.panel-heading {
+	background-color: #bababa;
+}
+
+.bodyContent {
+	color: darkgrey;
+}
+
+hr {
+	-moz-border-bottom-colors: none;
+	-moz-border-image: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	border-color: #EEEEEE -moz-use-text-color #FFFFFF;
+	border-style: solid none;
+	border-width: 1px 0;
+	margin: 18px 0;
+}
+
+.question-view .taglib-user-display .user-name {
+	display: none;
+}
+
+.margin-top-5 {
+	margin: 5px 1px 1px 1px;
+}
+
+.margin-top-10 {
+	margin: 10px 1px 1px 1px;
+}
+
+.margin-top-15 {
+	margin: 15px 1px 1px 1px;
+}
+
+.margin-top-21 {
+	margin: 21px 1px 1px 1px;
+}
+
+.deleted-input {
+	list-style: none;
+	margin-left: -2em;
+	padding: 0;
+}
+
+.margin-left-50{
+	margin-left: 50px;
+}
+
+.btn-main {
+	width: 155px;
+    font-weight: bold;
+    margin-left: 50px;
+}
+
+.questions .only{
+	background-color: #d3d3d3;
+}
+
+/* --- */
+
+.aui .questions-list .listing-btn {
+	margin-top: 5px !important;
+}
+
+.aui .questions-list {
+	text-align: center;
+}
+
+.aui .navbar .navbar-inner {
+    padding: 0px;
+}
+
+.aui .title-text {
+	font-size: 15px;
+    font-weight: normal;
+    color: #333;
+}
+
+.aui .control-group {
+	margin-bottom: 15px !important;
+
+	input {
+		font-size: 12px !important;
+		width: 47%;
+	}
+}
+
+.aui .message-attachments .attached-img {
+    width: 100px;
+    float: left;
+    margin-right: 20px;
+    height: 80px;
+    margin-bottom: 20px;
+
+    img {
+    	max-height: 100%;
+    }
+}
+

@@ -1,0 +1,81 @@
+<%
+	DynamicQuery dq2 = MBThreadLocalServiceUtil.dynamicQuery();
+	dq2.add(PropertyFactoryUtil.forName("question").eq(Boolean.TRUE));
+	dq2.add(PropertyFactoryUtil.forName("categoryId").in(catIdList));
+	dq2.addOrder(PropertyFactoryUtil.forName("lastPostDate").desc());
+%>
+<liferay-ui:search-container
+				curParam="cur2"
+				delta="5"
+				emptyResultsMessage="no-questions-found"
+				iteratorURL="<%= currentURL %>"
+				total="<%= MBThreadLocalServiceUtil.dynamicQuery(dq2).size() %>"
+			>
+				<liferay-ui:search-container-results
+					results="<%= MBThreadLocalServiceUtil.dynamicQuery(dq2,
+							searchContainer.getStart(),
+							searchContainer.getEnd())%>"
+				/>
+
+				<liferay-ui:search-container-row
+					className="com.liferay.portlet.messageboards.model.MBThread"
+					escapedModel="<%= true %>"
+					keyProperty="threadId"
+					modelVar="thread"
+				>
+				<%
+					MBMessage message = null;
+
+									try {
+										message = MBMessageLocalServiceUtil
+												.getMessage(thread.getRootMessageId());
+										
+									} catch (NoSuchMessageException nsme) {
+										_log.error("Thread requires missing root message id "
+												+ thread.getRootMessageId());
+
+										row.setSkip(true);
+									}
+
+									message = message.toEscapedModel();
+									row.setObject(new Object[] { message });
+									
+				%>
+				 
+				<portlet:renderURL var="rowURL" copyCurrentRenderParameters="true">
+					<portlet:param name="messageId"
+						value="<%=String.valueOf(message.getMessageId())%>" />
+						<portlet:param name="targetPage"
+						value="view_question" />
+						
+				</portlet:renderURL>
+				<liferay-ui:search-container-column-text buffer="buffer"
+					href="<%=rowURL%>" name="Latest Questions">
+
+					<%
+											buffer.append("<div class=\"content\">");
+									buffer.append(" <p class=\"view-question\"><a href='"+rowURL+"'>"+message.getSubject() +"</a><span>"+ (message.getThread().getMessageCount()-1)+" comment</span></p>");
+                            buffer.append("    <p class=\"author\">Asked By :"+ (message.isAnonymous() ? LanguageUtil.get(
+									pageContext, "anonymous") : HtmlUtil
+									.escape(PortalUtil.getUserName(
+											message.getUserId(),
+											message.getUserName())))+"</p>");
+                            
+                    		Date now = new Date();
+
+                    		long lastPostAgo = now.getTime() - thread.getLastPostDate().getTime();
+                    		
+
+                             buffer.append("   <p class=\"time\">"+LanguageUtil.format(pageContext, "x-ago", LanguageUtil.getTimeDescription(pageContext, lastPostAgo, true))+"</p>");
+                 		 buffer.append(" </div>");
+                   %>
+
+				</liferay-ui:search-container-column-text>
+			</liferay-ui:search-container-row>
+
+			<liferay-ui:search-iterator />
+		</liferay-ui:search-container>
+		
+<%!
+private static Log _log = LogFactoryUtil.getLog("quickquestions.docroot.html.latest_questions_listing_jspf");
+%>

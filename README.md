@@ -1,2 +1,2 @@
 # liferay-quick-questions
-Liferay Quick Questions
+Simple questions and answers for Liferay Portal

@@ -1,0 +1,49 @@
+<div>
+<liferay-ui:custom-attributes-available className="<%= MBMessage.class.getName() %>">
+	<div class="custom-attributes">
+			<liferay-ui:custom-attribute-list
+					className="<%= MBMessage.class.getName() %>"
+					classPK="<%= (message != null) ? message.getMessageId() : 0 %>"
+					editable="<%= false %>"
+					label="<%= true %>"
+			/>
+	</div>
+</liferay-ui:custom-attributes-available>
+
+				<c:if test="<%= message.getMessageId() > 0 %>">
+
+					<%
+					int attachmentsFileEntriesCount = message.getAttachmentsFileEntriesCount();
+					int deletedAttachmentsFileEntriesCount = message.getDeletedAttachmentsFileEntriesCount();
+					%>
+
+					<c:if test="<%= ((attachmentsFileEntriesCount > 0) || ((deletedAttachmentsFileEntriesCount > 0) && TrashUtil.isTrashEnabled(scopeGroupId) && MBMessagePermission.contains(permissionChecker, message, ActionKeys.UPDATE))) %>">
+					<h4><liferay-ui:message key="attachments" />:</h4>
+						<div class="message-attachments">
+
+							<%
+							List<FileEntry> attachmentsFileEntries = message.getAttachmentsFileEntries();
+
+							for (FileEntry fileEntry : attachmentsFileEntries) {
+								if (MimeTypesUtil.isWebImage(fileEntry.getMimeType())) {
+
+									String portletFileEntryURL = PortletFileRepositoryUtil.getPortletFileEntryURL(themeDisplay, fileEntry, StringPool.BLANK);
+
+									String downloadPortletFileEntryURL = HttpUtil.addParameter(portletFileEntryURL, "download", true);
+							%>
+
+
+									<div class="attached-img">
+										<a href="<%= downloadPortletFileEntryURL %>" target="_blank">
+											<img alt="<liferay-ui:message key="attachment" />" src="<%= PortletFileRepositoryUtil.getPortletFileEntryURL(themeDisplay, fileEntry, StringPool.BLANK) %>" />
+										</a>
+									</div>
+
+							<%
+								}
+							}
+							%>
+						</div>
+					</c:if>
+				</c:if>
+			</div>
